@@ -1,134 +1,19 @@
 # Weather-Project-suraj-kamble-
 weather app using HTML, CSS, and JavaScript that takes a city name from the user and shows the current temperature. It will use your provided API.
-code:
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weather App</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #6dd5fa, #2980b9);
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .container {
-      background: rgba(0, 0, 0, 0.3);
-      padding: 20px;
-      border-radius: 15px;
-      text-align: center;  
-      width: 320px;
-    }
-    h1 {
-      margin-bottom: 20px;
-    }
-    input {
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
-      width: 70%;
-      margin-right: 5px;
-    }
-    button {
-      padding: 10px 15px;
-      border: none;
-      border-radius: 8px;
-      background: #ff9800;
-      color: white;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #e68900;
-    }
-    .weather-info {
-      margin-top: 20px;
-      font-size: 18px;
-    }
-    .temp {
-      font-size: 30px;
-      font-weight: bold;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1>🌤 Weather App</h1>
-    <input type="text" id="locationInput" placeholder="Enter city name">
-    <button onclick="getWeather()">Get Weather</button>
-    <div class="weather-info" id="weatherInfo"></div>
-  </div>
 
-  <script>
-    async function getWeather() {
-      const location = document.getElementById("locationInput").value;
-      const apiKey = "aeddd92d83364d4abbd152328251709";
-      const url = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${location}&aqi=yes`;
+# **What is a Weather API?**
+API = Application Programming Interface → it’s like a messenger between your app and another service.
+A Weather API provides real-time weather data (temperature, humidity, wind, forecast, etc.) for any city or location.
+Example: OpenWeatherMap API
 
-      try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error("City not found");
-        }
-        const data = await response.json();
-        const temp = data.current.temp_c;
-        const condition = data.current.condition.text;
-        const city = data.location.name;
-        const country = data.location.country;
+# **How does it work?**
+You send a request to the API with:
+City name (e.g., London)
+Your API Key (a secret code that identifies you)
+The API checks its database and sends back weather data in JSON format (a structured text that’s easy for JavaScript to read).
+Your app extracts the needed info (like temperature) and shows it to the user.
 
-        document.getElementById("weatherInfo").innerHTML = `
-          <p><strong>${city}, ${country}</strong></p>
-          <p class="temp">${temp}°C</p>
-          <p>${condition}</p>
-        `;
-      } catch (error) {
-        document.getElementById("weatherInfo").innerHTML = `<p>❌ ${error.message}</p>`;
-      }
-    }
-  </script>
-<!-- Code injected by live-server -->
-<script>
-	// <![CDATA[  <-- For SVG support
-	if ('WebSocket' in window) {
-		(function () {
-			function refreshCSS() {
-				var sheets = [].slice.call(document.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-					}
-					parent.appendChild(elem);
-				}
-			}
-			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-			var address = protocol + window.location.host + window.location.pathname + '/ws';
-			var socket = new WebSocket(address);
-			socket.onmessage = function (msg) {
-				if (msg.data == 'reload') window.location.reload();
-				else if (msg.data == 'refreshcss') refreshCSS();
-			};
-			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-				console.log('Live reload enabled.');
-				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-			}
-		})();
-	}
-	else {
-		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}
-	// ]]>
-</script>
-</body>
-</html>
+#You (user) → enter city
+#Your app → asks Weather API
+#API → sends back weather data (JSON)
+#Your app → shows it to the user
